@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    th:with="titulo1='Lista Recepcionista(s)', titulo2='Recepcionistas Cadastrado(s)'">
+    <!-- layout:decorate="~{layout/layout}" -->
+<head>
+    <meta th:insert="~{/fragments/head :: head(${titulo1})}">
+</head>
+<body>
+    <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div th:replace="~{/fragments/body :: menu}"></div>
+        <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div>
+    </nav>
+</body>
+</html>

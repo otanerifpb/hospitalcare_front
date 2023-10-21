@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    th:with="titulo1='Lista Médico(s)', titulo2='Médicos Cadastrado(s)'">
+    <!-- layout:decorate="~{layout/layout}" -->
+<head>
+    <meta th:insert="~{/fragments/head :: head(${titulo1})}">
+</head>
+<body>
+    <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div th:replace="~{/fragments/body :: menu}"></div>
+        <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div> 
+    </nav>
+
+    <div class="container">
+        <div th:replace="~{/fragments/body :: mensagens}"></div>
+
+        <div layout:fragment="content">
+            <form th:action="@{/medico/formMedico}" method="GET">
+                <button class="btn btn-outline-secondary" type="submit" title="Novo">
+                    <img th:src="@{/imagens/novo1.png}" alt="Novo"/> Novo
+                </button>
+            </form>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(medico)}">
+            <div th:text="'Total: ' + ${#lists.size(medico)} + ' registro(s)'" 
+                style="text-align: right; color: gray; font-size: 0.85em;">
+            </div></br>
+
+            <table class="table table-striped table-hover">
+                <div class="navbar-nav" th:fragment="cabmedic">
+                    <thead>
+                        <tr>
+                            <th>Nome:</th>
+                            <th style="text-align: center;">CRM:</th>
+                            <th style="text-align: center;">Sexo:</th>
+                            <!-- <th style="text-align: center;">Data Nascimento:</th> -->
+                            <th style="text-align: center;">Especialidade:</th>
+                            <th style="text-align: center;">Telefone:</th>
+                        </tr>
+                    </thead>
+                </div>
+                
+                <tbody>
+                    <tr th:each="medico : ${medico}">
+                        <td th:text="${medico.nome != null and medico.nome != '' ?medico.nome: 'Anônimo'}"></td>
+                        <td th:text="${medico.crm}" style="text-align: center;"></td>
+                        <td th:text="${medico.sexo}" style="text-align: center;"></td>
+                        <!-- <td th:text="${#dates.format(medico.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
+                            style="text-align: center;"></td> -->
+                        <td th:text="${medico.especialidade}" style="text-align: center;"></td>
+                        <td th:text="${medico.telefone}" style="text-align: center;"></td>
+                        <td>
+                            <form th:action="@{/medico/{id}(id=${medico.id})}" method="GET">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                                    <img th:src="@{/imagens/editar.png}" alt="Editar"/> Editar
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/medico/{id}/delete(id=${medico.id})}" method="GET">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
+                                    <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/> Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            
+        </div>
+
+        <div th:unless="${not #lists.isEmpty(medico)}"></br>
+            <table class="table table-striped table-hover">
+                <div th:replace="~{/medico/listMedico :: cabmedic}"></div>
+            </table>
+
+            <h3 class="aviso">
+                <span>Nenhum Médico Está Cadastrado no Sistema!!</span>
+            </h3>  
+        </div>
+    </div>
+</body>
+</html>

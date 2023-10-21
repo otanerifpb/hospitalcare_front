@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    th:with="titulo1='Lista Paciente(s)', titulo2='Pacientes Cadastrado(s)'">
+    <!-- layout:decorate="~{layout/layout}" -->
+<head>
+    <meta th:insert="~{/fragments/head :: head(${titulo1})}">
+</head>
+<body>
+    <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div th:replace="~{/fragments/body :: menu}"></div>
+        <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div> 
+    </nav>
+
+    <div class="container">
+        <div th:replace="~{/fragments/body :: mensagens}"></div>
+
+        <div layout:fragment="content">
+            <form th:action="@{/paciente/formPaciente}" method="GET">
+                <button class="btn btn-outline-secondary" type="submit" title="Novo">
+                    <img th:src="@{/imagens/novo1.png}" alt="Novo"/> Novo
+                </button>
+            </form>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(paciente)}">
+            <div th:text="'Total: ' + ${#lists.size(paciente)} + ' registro(s)'" 
+                style="text-align: right; color: gray; font-size: 0.85em;">
+            </div></br>
+
+            <table class="table table-striped table-hover">
+                <div class="navbar-nav" th:fragment="cabpac">
+                    <thead>
+                        <tr>
+                            <th>Nome:</th>
+                            <th style="text-align: center;">CPF:</th>
+                            <th style="text-align: center;">Sexo:</th>
+                            <th style="text-align: center;">Data Nascimento:</th>
+                            <th style="text-align: center;">E-mail:</th>
+                            <th style="text-align: center;">Telefone:</th>
+                            <th style="text-align: center;">Anamnese:</th>
+                            <th style="text-align: center;">Prontuário:</th>
+                        </tr>
+                    </thead>
+                </div>
+
+                <tbody>
+                    <tr th:each="paciente : ${paciente}">
+                        <td th:text="${paciente.nome != null and paciente.nome != '' ?paciente.nome: 'Anônimo'}"></td>
+                        <td th:text="${paciente.Cpf}" style="text-align: center;"></td>
+                        <td th:text="${paciente.sexo}" style="text-align: center;"></td>
+                        <td th:text="${#dates.format(paciente.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
+                            style="text-align: center;"></td>
+                        <td th:text="${paciente.email}" style="text-align: center;"></td>
+                        <td th:text="${paciente.Telefone}" style="text-align: center;"></td>
+                        <td class="text-center">
+                            <div th:if="${not #lists.isEmpty(paciente.anamnese)}">
+                                <form th:action="@{/paciente/{id}/listAnaminese(id=${paciente.id})}" method="GET">
+                                    <button class="btn btn-outline-secondary btn-sm " type="submit" title="Declaração">
+                                        <img th:src="@{/imagens/documento.png}" alt="Anamnese"/>
+                                    </button>
+                                </form>
+                            </div>
+                            <div th:unless="${not #lists.isEmpty(paciente.anamnese)}">
+                                <!-- <a th:href="@{/pacientes/{id}/listAnamineses(id=${paciente.id})}" >
+                                    <p>Sem PDF</p>
+                                </a> -->
+                                <p>Sem PDF</p>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <div th:if="${not #lists.isEmpty(paciente.prontuario)}">
+                                <form th:action="@{/paciente/{id}/listProntuarios(id=${paciente.id})}" method="GET">
+                                    <button class="btn btn-outline-secondary btn-sm " type="submit" title="Declaração">
+                                        <img th:src="@{/imagens/documento.png}" alt="Prontuário"/>
+                                    </button>
+                                </form>
+                            </div>
+                            <div th:unless="${not #lists.isEmpty(paciente.prontuario)}">
+                                <!-- <a th:href="@{/pacientes/{id}/listProntuarios(id=${paciente.id})}" >
+                                    <p>Sem PDF</p>
+                                </a> -->
+                                <p>Sem PDF</p>
+                            </div>
+                        </td>
+                        <td>
+                            <form th:action="@{/paciente/{id}(id=${paciente.id})}" method="GET">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                                    <img th:src="@{/imagens/editar.png}" alt="Editar"/> Editar
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/paciente/{id}/delete(id=${paciente.id})}">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
+                                    <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/> Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    
+                </tbody>
+            </table>
+        </div>
+
+        <div th:unless="${not #lists.isEmpty(paciente)}"></br>
+            <table class="table table-striped table-hover">
+                <div th:replace="~{/paciente/listPaciente :: cabpac}"></div>
+            </table>
+
+            <h3 class="aviso">
+                <span>Nenhum Paciente Está Cadastrado no Sistema!!</span>
+            </h3>  
+        </div>
+    </div>
+</body>
+</html>

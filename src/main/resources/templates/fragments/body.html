@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt_BR" 
+    xmlns:th="www.thymeleaf.org" 
+    th:import="org.thymeleaf.spring5.util.SpringSelectedValueComparator">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragments Body</title>
+</head>
+<body>
+
+    <!-- Logo + título da página -->
+    <div class="logo-bar mb-1 p-1" th:fragment="logo(titulo)">
+        <span class="logo-font">
+            <img th:src="@{/imagens/header-t.png}" th:text="${titulo}"/> 
+        </span>
+    </div>
+
+    <!-- Menu superior da página -->
+    <div class="navbar-nav" th:fragment="menu">
+        <a sec:authorize="hasAnyRole('USER', 'ADMIN')" th:classappend="${menu == 'home'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/home}">
+            Home
+        </a>
+        <a sec:authorize="hasRole('ADMIN')" th:classappend="${menu == 'medico'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/medico}">
+            Medicos
+        </a>
+        <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'paciente'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/paciente}">
+            Pacientes
+        </a>
+        <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'enfermeiro'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/enfermeiro}">
+            Enfermeiros
+        </a>
+        <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'recepcionista'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/recepcionista}">
+            Recepcionistas
+        </a>
+        <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'documento'} ? 'active'"  
+            class="nav-item nav-link" th:href="@{/documento}">
+            Documentos
+        </a>
+    </div>
+
+    <!-- Botão Sair da página Home + identificação do usuário -->
+    <!-- class="btn btn-outline-success my-2 my-sm-0" -->
+    <!-- th:action="@{/auth/logout}" method="POST"> -->
+    <!-- <form>th:action="@{/obras}</form>" -->
+    <a th:fragment="sair(titulo)" class="form-inline my-2 my-lg-0" 
+            th:href="@{/obra}" method="POST">
+        <span sec:authorize="isAuthenticated()" sec:authentication="name" 
+            style="margin-right: 3px; font-size: 0.8em;"></span>
+        <button class="btn btn-outline-secondary my-0 my-sm-0" type="submit" title="Sair">
+            <img th:src="@{/imagens/sair.png}" alt="Sair"/> Sair
+        </button>
+    </a> 
+
+    <!-- Título do card da página+ -->
+    <div class="card-header" th:fragment="titulo(titulo)" th:text="${titulo}"></div>
+
+    <!-- Mensagem de Error/Sucesso do Formulário -->
+    <div style="margin-right: 5px;" th:fragment="mensagens">
+        <div th:text="${errorMensagem}" 
+            th:if="${errorMensagem ne null}" 
+            class="alert alert-danger" ></div>
+
+        <div th:text="${succesMensagem}" 
+            th:if="${succesMensagem ne null}" 
+            class="alert alert-success" ></div>
+    </div>
+
+    <!-- Dados do formulário de Médico -->
+    <div class="navbar-nav" th:fragment="formMedico">
+        <input type="hidden" required th:field="*{id}" />
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" th:field="*{nome}" maxlength="50"/>
+            <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="crm" class="form-label">CRM:</label>
+            <input type="text" class="form-control" th:field="*{crm}" />
+            <p th:if="${#fields.hasErrors('crm')}" th:errorclass="error" th:errors="*{crm}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+             <label for="sexo" class="form-label">Sexo:</label>
+             <!--<input type="text" class="form-control" th:field="*{sexo}" />
+            <p th:if="${#fields.hasErrors('sexo')}" th:errorclass="error" th:errors="*{sexo}"></p> -->
+            <select th:field="*{sexo}" class="form-select"  >
+                <option th:value="''" th:text="''"></option>
+                <option th:value="'M'" th:text="Masculino"></option>
+                <option th:value="'F'" th:text="Feminino"></option>
+            </select>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="dataNascimento" class="form-label">Data Nascimento:</label>
+            <input type="date" class="form-control" th:field="*{dataNascimento}" />
+            <p th:if="${#fields.hasErrors('dataNascimento')}" th:errorclass="error" th:errors="*{dataNascimento}"></p> 
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="especialidade" class="form-label">Especialidade:</label>
+            <input type="text" class="form-control" th:field="*{especialidade}" />
+            <p th:if="${#fields.hasErrors('especialidade')}" th:errorclass="error" th:errors="*{especialidade}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="telefone" class="form-label">Telefone:</label>
+            <input type="number" class="form-control" th:field="*{telefone}"/> 
+            <p th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}" th:errorclass="error">
+        </div>
+    </div>
+
+    <!-- Dados do formulário de Paciente -->
+    <div class="navbar-nav" th:fragment="formPaciente">
+        <input type="hidden" required th:field="*{id}" />
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" th:field="*{nome}" maxlength="50"/>
+            <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="Cpf" class="form-label">CPF:</label>
+            <input type="text" class="form-control" th:field="*{Cpf}" />
+            <p th:if="${#fields.hasErrors('Cpf')}" th:errorclass="error" th:errors="*{Cpf}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+             <label for="sexo" class="form-label">Sexo:</label>
+            <!--<input type="text" class="form-control" th:field="*{sexo}" />
+            <p th:if="${#fields.hasErrors('sexo')}" th:errorclass="error" th:errors="*{sexo}"></p> -->
+            <select th:field="*{sexo}" class="form-select"  >
+                <option th:value="''" th:text="''"></option>
+                <option th:value="'M'" th:text="Masculino"></option>
+                <option th:value="'F'" th:text="Feminino"></option>
+            </select>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="dataNascimento" class="form-label">Data Nascimento:</label>
+            <input type="date" class="form-control" th:field="*{dataNascimento}" />
+            <p th:if="${#fields.hasErrors('dataNascimento')}" th:errorclass="error" th:errors="*{dataNascimento}"></p> 
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="email" class="form-label">E-mail:</label>
+            <input type="email" th:field="*{email}" class="form-control"/>
+            <p th:if="${#fields.hasErrors('email')}" th:errorclass="error" th:errors="*{email}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="telefone" class="form-label">Telefone:</label>
+            <input type="number" class="form-control" th:field="*{telefone}"/> 
+            <p th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}" th:errorclass="error">
+        </div>
+    </div>
+</body>
+</html>

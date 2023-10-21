@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    th:with="titulo1='Atualizar Médico', titulo2='Atualização de Médico'">
+    <!-- layout:decorate="~{layout/layout}" -->
+<head>
+    <meta th:insert="~{/fragments/head :: head(${titulo1})}">
+</head>
+<body>
+    <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div th:replace="~{/fragments/body :: menu}"></div>
+        <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div> 
+    </nav>
+
+    <div class="container">
+        <div layout:fragment="content">
+            <form th:action="@{/medico/update}" method="POST" th:object="${medico}">
+                <div th:replace="~{/fragments/body :: formMedico}"></div>
+    
+                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Salvar">
+                    <img th:src="@{/imagens/salvar5.jpg}" alt="Salvar"/> Salvar
+                </button>
+    
+                <a th:href="@{/medico}">
+                    <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                        <img th:src="@{/imagens/voltar.png}" alt="Voltar"/> Voltar
+                    </button>
+                </a>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

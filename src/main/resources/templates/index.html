@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+    th:with="titulo1='Página Principal', titulo2='Hospital Care'">
+    <!-- layout:decorate="~{layout/layout}" -->
+<head>
+    <meta th:insert="~{/fragments/head :: head(${titulo1})}">
+</head>
+<body>
+    <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div>
+
+    <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
+        <div th:replace="~{/fragments/body :: menu}"></div>
+        <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div> 
+    </nav>
+
+    <div class="container">
+        <div th:replace="~{/fragments/body :: mensagens}"></div>
+        
+        <div layout:fragment="content" class="home-page mb-0 p-0">
+            <div class="div-home">
+                <h1>Hospital Care</h1>
+    
+                <p>HospitalCare tem como escopo aprimorar a forma como os cuidados hopitalares 
+                    são realizados, proporcionando uma <strong>solução digital</strong>, segura e eficaz para a 
+                    coleta, registro e monitoramento de informações desde a etapa inicial da 
+                    <strong>anamnese</strong> até a administração de <strong>tratamentos</strong> e 
+                    <strong>medicamentos prescritos</strong>.</p>
+    
+                <p> Além disso, sua finalidade é <strong>prevenir</strong> a administração incorreta de 
+                    medicamentos que não sejam compatíveis com o quadro clínico apresentado 
+                    pelo paciente, <strong>proporcionando</strong> um <strong>acesso facilitado</strong> e 
+                    <strong>compartilhado informações</strong> entre os <strong>profissionais da saúde</strong> 
+                    envolvidos no seu atendimento e restabelecimento.</p>
+            </div>
+            <img th:src="@{/imagens/home-page.jpg}" class="img-fluid"/>
+        </div>
+    </div>
+</body>
+<footer>
+    <div th:replace="~{/fragments/footer :: footer}"></div>
+</footer>
+</html>

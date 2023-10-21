@@ -1,0 +1,61 @@
+.logo-bar {
+    background-color: #2f9bc3;
+}
+
+.logo-bar img {
+    vertical-align: sub;
+    margin-right: 5px;
+}
+
+.logo-font {
+    font-family: 'Fugaz One', cursive;
+    font-size: 2.3rem;
+}
+
+.home-page img {
+    vertical-align: sub;
+    margin-right: 5px;
+}
+
+/* .home-page {
+    background-color: #0a0b0a;
+} */
+
+/* .alert-error {
+    background-color: #cc3a3a;
+} */
+
+.error {
+    color: red;
+}
+
+.btn-outline-secondary {
+    border: none;
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #090909;
+    color:white;
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+  }
+
+.img-fluid {
+    height: 300px;
+    width: 100%;
+}
+
+.div-home {
+    text-align: center
+}
+
+.aviso {
+    text-align: center;
+    color:rgb(57, 186, 18);
+}
+/* text-align: center */
