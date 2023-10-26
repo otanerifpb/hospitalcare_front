@@ -106,7 +106,7 @@
             <p th:if="${#fields.hasErrors('especialidade')}" th:errorclass="error" th:errors="*{especialidade}"></p> -->
             <select th:field="*{especialidade}" class="form-select"  >
                 <option th:value="''" th:text="''"></option>
-                <option th:value="'Clinico'" th:text="Clinico Geral"></option>
+                <option th:value="'Clinico Geral'" th:text="'Clinico Geral'"></option>
                 <option th:value="'Cardiologia'" th:text="Cardiologia"></option>
                 <option th:value="'Dermatologia'" th:text="Dermatologia"></option>
                 <option th:value="'Endocriologia'" th:text="Endocriologia"></option>
@@ -117,8 +117,8 @@
                 <option th:value="'Oncologia'" th:text="Oncologia"></option>
                 <option th:value="'Ortopedia'" th:text="Ortopedia"></option>
                 <option th:value="'Pediatria'" th:text="Pediatra"></option>
+                <option th:value="'Psiquiatria'" th:text="Psiquiatria"></option>
                 <option th:value="'Urologia'" th:text="Urologia"></option>
-                Psiquiatria
             </select>
         </div>
         <div class="form-group mx-sm-0 mb-2">
