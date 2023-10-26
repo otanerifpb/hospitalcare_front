@@ -36,7 +36,7 @@
                             <th>Nome:</th>
                             <th style="text-align: center;">CRM:</th>
                             <th style="text-align: center;">Sexo:</th>
-                            <!-- <th style="text-align: center;">Data Nascimento:</th> -->
+                            <th style="text-align: center;">Data Nascimento:</th>
                             <th style="text-align: center;">Especialidade:</th>
                             <th style="text-align: center;">Telefone:</th>
                         </tr>
@@ -48,8 +48,8 @@
                         <td th:text="${medico.nome != null and medico.nome != '' ?medico.nome: 'Anônimo'}"></td>
                         <td th:text="${medico.crm}" style="text-align: center;"></td>
                         <td th:text="${medico.sexo}" style="text-align: center;"></td>
-                        <!-- <td th:text="${#dates.format(medico.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
-                            style="text-align: center;"></td> -->
+                        <td th:text="${#dates.format(medico.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
+                            style="text-align: center;"></td>
                         <td th:text="${medico.especialidade}" style="text-align: center;"></td>
                         <td th:text="${medico.telefone}" style="text-align: center;"></td>
                         <td>
