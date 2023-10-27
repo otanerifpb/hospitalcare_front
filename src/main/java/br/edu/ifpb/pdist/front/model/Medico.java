@@ -1,14 +1,12 @@
 package br.edu.ifpb.pdist.front.model;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
 
@@ -40,7 +38,7 @@ public class Medico implements Serializable {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @PastOrPresent
     @Past(message = "Data deve ser no passado")
-    //@Max(value = new Date())
+    //@Max(value = new Date().minusYears(24))
     private Date dataNascimento;
 
     private String especialidade;

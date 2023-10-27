@@ -2,11 +2,11 @@ package br.edu.ifpb.pdist.front.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
-
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pdist.front.model.Medico;
 
+
 @Controller
 @RequestMapping("/medico")
 public class MedicoController {
@@ -26,6 +27,10 @@ public class MedicoController {
     // Injeção de dependência
     @Autowired
     private RestTemplate restTemplate;
+
+    // Injeção do localhoste do application.properties
+    @Value("${backend.8081}")
+    private String localhost1;
 
     // Ativa o menu Médico na barra de navegação
     @ModelAttribute("menu")
@@ -36,7 +41,9 @@ public class MedicoController {
     // Rota para acessar a lista pelo menu
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView listAll(ModelAndView mav) {
-        List<Medico> opMedicos = restTemplate.getForObject("http://localhost:8081/medico", List.class);       
+        String url = localhost1 + "/medico";
+        // List<Medico> opMedicos = restTemplate.getForObject("http://localhost:8081/medico", List.class); 
+        List<Medico> opMedicos = restTemplate.getForObject(url, List.class);      
         mav.addObject("medico", opMedicos);
         mav.setViewName("medico/listMedico");
         return mav;
@@ -60,9 +67,11 @@ public class MedicoController {
     // Rota para cadastrar um Médico no Sitema
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(@ModelAttribute Medico medico , ModelAndView mav, RedirectAttributes redAttrs) {
-        ResponseEntity<Medico> response = restTemplate.postForEntity("http://localhost:8081/medico/save", medico, Medico.class);
+        String url = localhost1 + "/medico/save";
+        //ResponseEntity<Medico> response = restTemplate.postForEntity("http://localhost:8081/medico/save", medico, Medico.class);
+        ResponseEntity<Medico> response = restTemplate.postForEntity(url, medico, Medico.class);
         if (response.getStatusCode() == HttpStatus.CREATED) {
-            mav.addObject("succesMensagem", "Médico cadastrado com sucesso!");
+            mav.addObject("succesMensagem", "Médico " +response.getBody().getNome()+ "cadastrado com sucesso!");
             listAll(mav);
             mav.setViewName("medico/listMedico");
         } else {
@@ -77,7 +86,7 @@ public class MedicoController {
     // Rota para preencer os dados do formunlário de atualização com dados do banco 
     @RequestMapping("/{id}")
     public ModelAndView getMedicoById(@PathVariable(value = "id") Integer id, ModelAndView mav) {
-        String url = "http://localhost:8081/medico/"+id; // Substitua 1 pelo ID desejado.
+        String url = localhost1 + "/medico/" + id; // Substitua 1 pelo ID desejado.
         ResponseEntity<Medico> response = restTemplate.getForEntity(url, Medico.class);
         if (response.getStatusCode() == HttpStatus.OK) {
             Medico medico =  response.getBody();
@@ -93,9 +102,11 @@ public class MedicoController {
     // // Rota para atualizar um Médico na lista pelo formUpMedico
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Medico medico, ModelAndView mav, RedirectAttributes redAttrs) {
-        ResponseEntity<Medico> response = restTemplate.postForEntity("http://localhost:8081/medico/update", medico, Medico.class);
+        String url = localhost1 + "/medico/update";
+        //ResponseEntity<Medico> response = restTemplate.postForEntity("http://localhost:8081/medico/update", medico, Medico.class);
+        ResponseEntity<Medico> response = restTemplate.postForEntity(url, medico, Medico.class);
         if (response.getStatusCode() == HttpStatus.OK) {
-            mav.addObject("succesMensagem", "Medico "+response.getBody().getNome()+", atualizado com sucesso!");
+            mav.addObject("succesMensagem", "Medico " +response.getBody().getNome()+ ", atualizado com sucesso!");
             listAll(mav);
             mav.setViewName("medico/listMedico");
         } else {
@@ -103,7 +114,7 @@ public class MedicoController {
             listAll(mav);
             mav.setViewName("medico/listMedico");
         }
-        mav.setViewName("/medico/listMedico"); 
+        //mav.setViewName("/medico/listMedico"); 
         return mav;
     }
 
@@ -111,9 +122,9 @@ public class MedicoController {
    @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav, RedirectAttributes redAttrs) {
         try {
-            String url = "http://localhost:8081" + "/medico/delete/" + id;
+            String url = localhost1 + "/medico/delete/" + id;
             restTemplate.delete(url);
-            redAttrs.addFlashAttribute("succesMensagem", "Medico id: "+id+" deletado com sucesso!!");
+            redAttrs.addFlashAttribute("succesMensagem", "Medico id: " +id+ " deletado com sucesso!!");
         } catch (HttpClientErrorException e) {
             redAttrs.addFlashAttribute("errorMensagem", "Medico Não exluido!!");
         } 
