@@ -30,7 +30,7 @@ public class MedicoController {
 
     // Injeção do localhoste do application.properties para Médico
     //@Value("${backend.url}")
-    //private String localhost1;
+    //private String localhost;
 
     private String localhost = "http://localhost:8081/medico";
 
@@ -59,13 +59,6 @@ public class MedicoController {
         return mav;
     }
 
-    // Rota para acessar a lista ao usar o REDIRECT
-    // @RequestMapping()
-    // public String listAll(Model model) {
-    //     model.addAttribute("medico", medicoRepository.findAll());
-    //     return "medico/listMedico";
-    // }
-
     // Rota para cadastrar no Sitema pelo botão Salvar do formulário
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(@ModelAttribute Medico medico , ModelAndView mav, RedirectAttributes redAttrs) {
@@ -77,9 +70,11 @@ public class MedicoController {
             listAll(mav);
             mav.setViewName("medico/listMedico");
         } else {
-            mav.addObject("errorMensagem", "Médico já cadastrado!");
-            listAll(mav);
-            mav.setViewName("medico/listMedico");
+            redAttrs.addFlashAttribute("errorMensagem", "Médico já cadastrado!");
+            //mav.addObject("errorMensagem", "Médico já cadastrado!");
+            //listAll(mav);
+            //mav.setViewName("medico/listMedico");
+            mav.setViewName("redirect:/medico");
         }
         return mav;
     }
@@ -112,11 +107,12 @@ public class MedicoController {
             listAll(mav);
             mav.setViewName("medico/listMedico");
         } else {
-            mav.addObject("errorMensagem", "Médico não atualizado!");
-            listAll(mav);
-            mav.setViewName("medico/listMedico");
+            redAttrs.addFlashAttribute("errorMensagem", "Médico não atualizado!");
+            //mav.addObject("errorMensagem", "Médico não atualizado!");
+            //listAll(mav);
+            //mav.setViewName("medico/listMedico");
+            mav.setViewName("redirect:/medico");
         }
-        //mav.setViewName("/medico/listMedico"); 
         return mav;
     }
 
