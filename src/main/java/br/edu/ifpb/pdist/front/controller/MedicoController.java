@@ -34,7 +34,7 @@ public class MedicoController {
 
     private String localhost = "http://localhost:8081/medico";
 
-    // Ativa o menu Médico na barra de navegação
+    // Ativa o menu na barra de navegação
     @ModelAttribute("menu")
     public String activeMenu(){
         return "medico";
@@ -51,14 +51,7 @@ public class MedicoController {
         return mav;
     } 
 
-    // Rota para acessar a lista ao usar o REDIRECT
-    // @RequestMapping()
-    // public String listAll(Model model) {
-    //     model.addAttribute("medico", medicoRepository.findAll());
-    //     return "medico/listMedico";
-    // }
-
-    // // Rota para acessar o formunário
+    // Rota para acessar o formunário pelo botão Novo
     @RequestMapping("/formMedico")
     public ModelAndView getFormEstu(Medico medico, ModelAndView mav) {
         mav.addObject("medico", medico);
@@ -66,7 +59,14 @@ public class MedicoController {
         return mav;
     }
 
-    // Rota para cadastrar um Médico no Sitema
+    // Rota para acessar a lista ao usar o REDIRECT
+    // @RequestMapping()
+    // public String listAll(Model model) {
+    //     model.addAttribute("medico", medicoRepository.findAll());
+    //     return "medico/listMedico";
+    // }
+
+    // Rota para cadastrar no Sitema pelo botão Salvar do formulário
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(@ModelAttribute Medico medico , ModelAndView mav, RedirectAttributes redAttrs) {
         String url = localhost + "/save";
@@ -84,8 +84,7 @@ public class MedicoController {
         return mav;
     }
         
-
-    // Rota para preencer os dados do formunlário de atualização com dados do banco 
+    // Rota para preencer os dados do formunlário de update pelo botão Editar
     @RequestMapping("/{id}")
     public ModelAndView getMedicoById(@PathVariable(value = "id") Integer id, ModelAndView mav) {
         //String url = "http://localhost:8081/medico/" + id; 
@@ -102,7 +101,7 @@ public class MedicoController {
         return mav;
     }
 
-    // // Rota para atualizar um Médico na lista pelo formUpMedico
+    // Rota para atualizar na lista pelo botão Salvar do formulário de update
     @RequestMapping(value="/update", method = RequestMethod.POST)
     public ModelAndView updade(Medico medico, ModelAndView mav, RedirectAttributes redAttrs) {
         String url = localhost + "/update";
@@ -121,8 +120,8 @@ public class MedicoController {
         return mav;
     }
 
-    // Rota para deletar um Médico da lista
-   @RequestMapping("{id}/delete")
+    // Rota para deletar na lista pelo botão Excluir
+    @RequestMapping("{id}/delete")
     public ModelAndView deleteById(@PathVariable(value = "id") Integer id, ModelAndView mav, RedirectAttributes redAttrs) {
         try {
             String url = localhost + "/delete/" + id;

@@ -48,12 +48,12 @@
                 <tbody>
                     <tr th:each="paciente : ${paciente}">
                         <td th:text="${paciente.nome != null and paciente.nome != '' ?paciente.nome: 'Anônimo'}"></td>
-                        <td th:text="${paciente.Cpf}" style="text-align: center;"></td>
+                        <td th:text="${paciente.cpf}" style="text-align: center;"></td>
                         <td th:text="${paciente.sexo}" style="text-align: center;"></td>
                         <td th:text="${#dates.format(paciente.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
                             style="text-align: center;"></td>
                         <td th:text="${paciente.email}" style="text-align: center;"></td>
-                        <td th:text="${paciente.Telefone}" style="text-align: center;"></td>
+                        <td th:text="${paciente.telefone}" style="text-align: center;"></td>
                         <td class="text-center">
                             <div th:if="${not #lists.isEmpty(paciente.anamnese)}">
                                 <form th:action="@{/paciente/{id}/listAnaminese(id=${paciente.id})}" method="GET">
