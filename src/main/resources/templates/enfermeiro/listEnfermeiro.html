@@ -12,5 +12,72 @@
         <div th:replace="~{/fragments/body :: menu}"></div>
         <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div> 
     </nav>
+
+    <div class="container">
+        <div th:replace="~{/fragments/body :: mensagens}"></div>
+
+        <div layout:fragment="content">
+            <form th:action="@{/enfermeiro/formEnfermeiro}" method="GET">
+                <button class="btn btn-outline-secondary" type="submit" title="Novo">
+                    <img th:src="@{/imagens/novo1.png}" alt="Novo"/> Novo
+                </button>
+            </form>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(enfermeiro)}">
+            <div th:text="'Total: ' + ${#lists.size(enfermeiro)} + ' registro(s)'" 
+                style="text-align: right; color: gray; font-size: 0.85em;">
+            </div></br>
+
+            <table class="table table-striped table-hover">
+                <div class="navbar-nav" th:fragment="cabmedic">
+                    <thead>
+                        <tr>
+                            <th>Nome:</th>
+                            <th style="text-align: center;">COREN:</th>
+                            <th style="text-align: center;">Sexo:</th>
+                            <th style="text-align: center;">Data Nascimento:</th>
+                            <th style="text-align: center;">Telefone:</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="enfermeiro : ${enfermeiro}">
+                            <td th:text="${enfermeiro.nome != null and enfermeiro.nome != '' ?enfermeiro.nome: 'Anônimo'}"></td>
+                            <td th:text="${enfermeiro.coren}" style="text-align: center;"></td>
+                            <td th:text="${enfermeiro.sexo}" style="text-align: center;"></td>
+                            <td th:text="${#dates.format(enfermeiro.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
+                                style="text-align: center;"></td>
+                            <td th:text="${enfermeiro.telefone}" style="text-align: center;"></td>
+                            <td>
+                                <form th:action="@{/enfermeiro/{id}(id=${enfermeiro.id})}" method="GET">
+                                    <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                                        <img th:src="@{/imagens/editar.png}" alt="Editar"/> Editar
+                                    </button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/enfermeiro/{id}/delete(id=${enfermeiro.id})}" method="GET">
+                                    <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
+                                        <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/> Excluir
+                                    </button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </div>
+            </table>
+        </div>
+
+        <div th:unless="${not #lists.isEmpty(enfermeiro)}"></br>
+            <table class="table table-striped table-hover">
+                <div th:replace="~{/enfermeiro/listEnfermeiro :: cabmedic}"></div>
+            </table>
+
+            <h3 class="aviso">
+                <span>Nenhum Enfermeiro Está Cadastrado no Sistema!!</span>
+            </h3>  
+        </div>
+    </div>
 </body>
 </html>
