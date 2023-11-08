@@ -17,5 +17,6 @@ public class HomeController {
      @RequestMapping("/home")
     public String showHomrPage(){
         return "index";
+        //return "login/formLogin";
     }
 }
