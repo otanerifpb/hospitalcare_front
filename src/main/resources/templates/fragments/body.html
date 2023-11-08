@@ -32,25 +32,22 @@
             Pacientes
         </a>
         <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'enfermeiro'} ? 'active'"  
-            class="nav-item nav-link" th:href="@{/enfermeiro}">
+            class="nav-item nav-link" th:href="@{/auth/obra}">
             Enfermeiros
         </a>
         <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'recepcionista'} ? 'active'"  
-            class="nav-item nav-link" th:href="@{/recepcionista}">
+            class="nav-item nav-link" th:href="@{/auth/obra}">
             Recepcionistas
         </a>
         <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'documento'} ? 'active'"  
-            class="nav-item nav-link" th:href="@{/documento}">
+            class="nav-item nav-link" th:href="@{/auth/obra}">
             Documentos
         </a>
     </div>
 
     <!-- Botão Sair da página Home + identificação do usuário -->
-    <!-- class="btn btn-outline-success my-2 my-sm-0" -->
-    <!-- th:action="@{/auth/logout}" method="POST"> -->
-    <!-- <form>th:action="@{/obras}</form>" -->
     <a th:fragment="sair(titulo)" class="form-inline my-2 my-lg-0" 
-            th:href="@{/obra}" method="POST">
+            th:href="@{/auth/logout}" method="POST">
         <span sec:authorize="isAuthenticated()" sec:authentication="name" 
             style="margin-right: 3px; font-size: 0.8em;"></span>
         <button class="btn btn-outline-secondary my-0 my-sm-0" type="submit" title="Sair">

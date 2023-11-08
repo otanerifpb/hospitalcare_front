@@ -2,6 +2,8 @@ package br.edu.ifpb.pdist.front.controller;
 
 import java.util.UUID;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,42 +12,40 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.edu.ifpb.pdist.front.model.Medico;
-
 @Controller
-@RequestMapping("/login")
-public class LoginController {
+@RequestMapping("/auth")
+public class AuthController {
     
-    // Rota para acessar o formulário pela Url
+    // Rota para acessar o formLogin geral
     @GetMapping
     public ModelAndView login() {
-        return new ModelAndView("login/formLogin");
+        return new ModelAndView("auth/formLogin");
     }
 
-    // Rota para acessar o Formunário pelo Url
+    // Rota para acessar o FormLogin
     @RequestMapping("/formLogin")
     public ModelAndView getFormLogin(ModelAndView mav) {
-        mav.setViewName("login/formLogin");
+        mav.setViewName("auth/formLogin");
         return mav;
     }
 
-    // Rota para acessar o Formunário Cadastro pelo Url
+    // Rota para acessar o FormCadastro
     //@RequestMapping("/formCadastro")
-    @RequestMapping(value="/formCadastro", method = RequestMethod.GET)
+    @RequestMapping(value="/formCadastro")
     public ModelAndView getFormCadstro(ModelAndView mav) {
-        mav.setViewName("login/formCadastro");
+        mav.setViewName("auth/formCadastro");
         return mav;
     }
 
-    // Rota para Login
+    // Rota para realizar o Login
     @PostMapping
     public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password, ModelAndView mav) {
         // Valida os dados do formulário
-        if (!username.equals("admin") || !password.equals("123456")) {
+        if (!username.equals("renato") || !password.equals("123456")) {
             //mav.setViewName("login", "error", "Usuário ou senha inválidos");
             //return new ModelAndView("login", "error", "Usuário ou senha inválidos");
             //return new ModelAndView("login/formCadastro");
-            return new ModelAndView("redirect:/login");
+            return new ModelAndView("redirect:/auth");
         }
 
         // Cria um token de autenticação
@@ -61,5 +61,21 @@ public class LoginController {
         //return new ModelAndView("redirect:http://localhost:5080/");
         return new ModelAndView("redirect:/home");
         
+    }
+
+    // Rota para realizar o Logout
+    @RequestMapping("/logout")
+    public ModelAndView logout(ModelAndView mav, HttpSession session) {
+        session.invalidate();
+        mav.setViewName("redirect:/auth");
+        return mav;
+    }
+
+    // Rota para páginas em desenvolvimento
+   @RequestMapping("/obra")
+    public ModelAndView getForm(ModelAndView mav) {  
+        //mav.setViewName("/login/formLogin");
+        //return mav;
+        return new ModelAndView("erros/404");
     }
 }
