@@ -67,19 +67,28 @@ public class AuthController {
         // Redireciona para a página principal
         //return new ModelAndView("redirect:http://localhost:5080/");
         
-          String url = localhost + "/login"; 
-          String parametrosLogin = username+password;
-        
+        String url = localhost + "/login"; 
+        String parametrosLogin = username+password;
         
         String response = restTemplate.postForObject(url,parametrosLogin , String.class);
-         
 
-        System.err.println(response+ "volteiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
-        
-        
+        System.err.println(response + "volte");
             return new ModelAndView("redirect:/home");
-            
-        }
+    }
+
+    // Rota para realizar o Cadastrar
+    //  @PostMapping
+    @RequestMapping(value="/register", method = RequestMethod.POST)
+    public ModelAndView register(@RequestParam("username") String username, @RequestParam("password") String password, ModelAndView mav) {
+        
+        String url = localhost + "/register"; 
+        String parametrosLogin = username + password;
+        
+        String response = restTemplate.postForObject(url,parametrosLogin , String.class);
+
+        System.err.println(response + "volte");
+        return new ModelAndView("redirect:/login");
+    }
     
     // Rota para realizar o Logout
     @RequestMapping("/logout")

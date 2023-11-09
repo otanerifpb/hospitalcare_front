@@ -15,13 +15,13 @@ import org.springframework.web.client.RestTemplate;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;
-    private String localhost = "http://localhost:50000";
+    private String localhost = "http://localhost:5000";
     @Autowired
     private RestTemplate restTemplate;
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
-    @Autowired
+    ///@Autowired
     public CustomAuthenticationProvider(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
@@ -39,7 +39,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         }
         String url = localhost + "/login"; 
         String parametrosLogin = username+password;
-        
+         System.err.println("antes de chamar &&&&&&&&&&&&&&&&&&&");
         
         String response = restTemplate.postForObject(url,parametrosLogin , String.class);
          

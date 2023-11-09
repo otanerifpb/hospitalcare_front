@@ -21,13 +21,17 @@
     <title>Cadastro</title>
 </head>
 <body class="text-center">
-    <form class="form-signin" th:action="@{/auth/cadastrar}" method="POST">
+    <form class="form-signin" th:action="@{/auth/register}" method="POST">
         <div class="centered">
             <img class="mb-4" th:src="@{/imagens/header-t.png}" alt="Logo do HospitalCare"></img>
             <h1 class="h3 mb-3 font-weight-normal autentique">Seja bem Vindo, Cadastre-se no Sistema!!</h1>
-            <label for = "username" class="sr-only" style="text-align: left; display: block;">Login:</label>
+            <label for = "name" class="sr-only" style="text-align: left; display: block;">Nome:</label>
                 <input type="text" class="form-control input-login" 
-                    placeholder="Informe seu Login Aqui!" 
+                    placeholder="Informe seu Nome Aqui!" 
+                    required autofocus name="name"><br>
+            <label for = "username" class="sr-only" style="text-align: left; display: block;">Email:</label>
+                <input type="text" class="form-control input-login" 
+                    placeholder="Informe seu E-mail Aqui!" 
                     required autofocus name="username">
             <label for="password" class="sr-only mt-3" style="text-align: left; display: block;">Senha:</label>
                 <input type="password" class="form-control input-login" 

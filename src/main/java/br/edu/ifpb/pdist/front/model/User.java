@@ -21,12 +21,18 @@ import java.util.List;
 @Table(name = "users")
 @Entity
 public class User {
-    private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    private String nome;
+
+    // Para username usar o e-mail
     private String username;
+
     private String password;
+
     private Boolean enabled;
     
     // Relacionamento User com Authority
