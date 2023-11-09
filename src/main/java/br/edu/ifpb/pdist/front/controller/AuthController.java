@@ -7,14 +7,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.edu.ifpb.pdist.front.model.Medico;
 import br.edu.ifpb.pdist.front.model.User;
 
 
@@ -40,8 +38,7 @@ public class AuthController {
     }
 
     // Rota para acessar o FormCadastro
-    //@RequestMapping("/formCadastro")
-    @RequestMapping(value="/formCadastro")
+    @RequestMapping("/formCadastro")
     public ModelAndView getFormCadastro(User user, ModelAndView mav) {
         mav.addObject("user", user);
         mav.setViewName("auth/formCadastro");
@@ -49,8 +46,8 @@ public class AuthController {
     }
 
     // Rota para realizar o Login
-  //  @PostMapping
-  @RequestMapping(method = RequestMethod.POST)
+    //@PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password, ModelAndView mav) {
         // Valida os dados do formulário
         // if (!username.equals("renato") || !password.equals("123456")) {
@@ -60,7 +57,6 @@ public class AuthController {
         //     return new ModelAndView("redirect:/auth");
         // }
         
-
         // Cria um token de autenticação
        // String token = UUID.randomUUID().toString();
 
@@ -71,7 +67,7 @@ public class AuthController {
         // ...(Redis)
 
         // Redireciona para a página principal
-        //return new ModelAndView("redirect:http://localhost:5080/");
+        //return new ModelAndView("redirect:http://localhost:5000/");
         
         String url = localhost + "/login"; 
         String parametrosLogin = username+password;
@@ -88,9 +84,7 @@ public class AuthController {
     public ModelAndView register(@ModelAttribute User usuario , ModelAndView mav) {
         
         String url = localhost + "/user/save"; 
-       // String parametrosLogin = username + password;
-        
-       // String response = restTemplate.postForObject(url,parametrosLogin , String.class);
+
         ResponseEntity<User> response = restTemplate.postForEntity(url, usuario, User.class);
 
         System.err.println(response + "volte");
@@ -108,8 +102,6 @@ public class AuthController {
     // Rota para páginas em desenvolvimento
    @RequestMapping("/obra")
     public ModelAndView getForm(ModelAndView mav) {  
-        //mav.setViewName("/login/formLogin");
-        //return mav;
         return new ModelAndView("erros/404");
     }
 }

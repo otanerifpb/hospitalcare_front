@@ -2,7 +2,6 @@ package br.edu.ifpb.pdist.front.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.HttpClientErrorException;
@@ -71,9 +70,6 @@ public class MedicoController {
             mav.setViewName("medico/listMedico");
         } else {
             redAttrs.addFlashAttribute("errorMensagem", "Médico já cadastrado!");
-            //mav.addObject("errorMensagem", "Médico já cadastrado!");
-            //listAll(mav);
-            //mav.setViewName("medico/listMedico");
             mav.setViewName("redirect:/medico");
         }
         return mav;
@@ -108,9 +104,6 @@ public class MedicoController {
             mav.setViewName("medico/listMedico");
         } else {
             redAttrs.addFlashAttribute("errorMensagem", "Médico não atualizado!");
-            //mav.addObject("errorMensagem", "Médico não atualizado!");
-            //listAll(mav);
-            //mav.setViewName("medico/listMedico");
             mav.setViewName("redirect:/medico");
         }
         return mav;

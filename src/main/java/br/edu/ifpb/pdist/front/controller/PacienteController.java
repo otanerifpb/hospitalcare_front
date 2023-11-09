@@ -61,9 +61,6 @@ public class PacienteController {
             mav.setViewName("paciente/listPaciente");
         } else {
             redAttrs.addFlashAttribute("errorMensagem", "Paciente já cadastrado!");
-            //mav.addObject("errorMensagem", "Paciente já cadastrado!");
-            //listAll(mav);
-            //mav.setViewName("paciente/listPaciente");
             mav.setViewName("redirect:/paciente");
         }
         return mav;
@@ -96,9 +93,6 @@ public class PacienteController {
             mav.setViewName("paciente/listPaciente");
         } else {
             redAttrs.addFlashAttribute("errorMensagem", "Paciente não atualizado!");
-            //mav.addObject("errorMensagem", "Paciente não atualizado!");
-            //listAll(mav);
-            //mav.setViewName("paciente/listPaciente");
             mav.setViewName("redirect:/paciente");
         }
         return mav;
