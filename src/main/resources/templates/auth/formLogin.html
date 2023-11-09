@@ -33,6 +33,12 @@
                 <input type="password" class="form-control input-login" 
                     placeholder="Digite sua Senha Aqui!" 
                     required name="password">
+                     <div th:if="${not #strings.isEmpty(mensagem)}" 
+                th:utext="${mensagem} + '<button type=&quot; button&quot; class=&quot; 
+                    close&quot; data-dismiss=&quot; alert&quot; aria-label=&quot; Close&quot>
+                    <span aria-hidden=&quot; true&quot; &times></span></button>'"
+                class="alert alert-danger alert-dismissible fade show" role="alert">
+            </div>
             <div class="checkbox mb-3">
                 <label>
                     <input  type="checkbox" value="lembrar">

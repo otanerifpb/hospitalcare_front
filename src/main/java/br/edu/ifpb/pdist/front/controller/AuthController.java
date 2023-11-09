@@ -1,21 +1,26 @@
 package br.edu.ifpb.pdist.front.controller;
 
-import java.util.UUID;
-
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
-    
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    private String localhost = "http://localhost:5000";
     // Rota para acessar o formLogin geral
     @GetMapping
     public ModelAndView login() {
@@ -38,18 +43,20 @@ public class AuthController {
     }
 
     // Rota para realizar o Login
-    @PostMapping
+  //  @PostMapping
+  @RequestMapping(method = RequestMethod.POST)
     public ModelAndView login(@RequestParam("username") String username, @RequestParam("password") String password, ModelAndView mav) {
         // Valida os dados do formulário
-        if (!username.equals("renato") || !password.equals("123456")) {
-            //mav.setViewName("login", "error", "Usuário ou senha inválidos");
-            //return new ModelAndView("login", "error", "Usuário ou senha inválidos");
-            //return new ModelAndView("login/formCadastro");
-            return new ModelAndView("redirect:/auth");
-        }
+        // if (!username.equals("renato") || !password.equals("123456")) {
+        //     //mav.setViewName("login", "error", "Usuário ou senha inválidos");
+        //     //return new ModelAndView("login", "error", "Usuário ou senha inválidos");
+        //     //return new ModelAndView("login/formCadastro");
+        //     return new ModelAndView("redirect:/auth");
+        // }
+        
 
         // Cria um token de autenticação
-        String token = UUID.randomUUID().toString();
+       // String token = UUID.randomUUID().toString();
 
         // Armazena o token no banco de dados
         // ...(SGBD)
@@ -59,10 +66,21 @@ public class AuthController {
 
         // Redireciona para a página principal
         //return new ModelAndView("redirect:http://localhost:5080/");
-        return new ModelAndView("redirect:/home");
         
-    }
+          String url = localhost + "/login"; 
+          String parametrosLogin = username+password;
+        
+        
+        String response = restTemplate.postForObject(url,parametrosLogin , String.class);
+         
 
+        System.err.println(response+ "volteiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+        
+        
+            return new ModelAndView("redirect:/home");
+            
+        }
+    
     // Rota para realizar o Logout
     @RequestMapping("/logout")
     public ModelAndView logout(ModelAndView mav, HttpSession session) {
