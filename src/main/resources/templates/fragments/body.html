@@ -121,6 +121,32 @@
         </div>
     </div>
 
+    <!-- Dados do formulário de User -->
+    <div class="navbar-nav" th:fragment="formUser">
+        <input type="hidden" required th:field="*{id}"/>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" th:field="*{nome}" maxlength="50"/>
+            <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="username" class="form-label">Email</label>
+            <input type="text" class="form-control" th:field="*{username}" />
+            <p th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="password" class="form-label">Senha</label>
+            <input type="text" class="form-control" th:field="*{password}" />
+            <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}"></p>
+        </div>
+        <div class="checkbox mb-3">
+            <label for="enabled" class="form-label">Habilitar</label>
+                <input  type="checkbox" th:field="*{enabled}">
+                <p th:if="${#fields.hasErrors('enabled')}" th:errorclass="error" th:errors="*{enabled}"></p>
+            </label>
+        </div>
+    </div>
+
     <!-- Dados do formulário de Paciente -->
     <div class="navbar-nav" th:fragment="formPaciente">
         <input type="hidden" required th:field="*{id}" />

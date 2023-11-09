@@ -3,14 +3,19 @@ package br.edu.ifpb.pdist.front.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+
+import br.edu.ifpb.pdist.front.model.Medico;
+import br.edu.ifpb.pdist.front.model.User;
 
 
 @Controller
@@ -20,7 +25,7 @@ public class AuthController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private String localhost = "http://localhost:5000";
+    private String localhost = "http://localhost:8085";
     // Rota para acessar o formLogin geral
     @GetMapping
     public ModelAndView login() {
@@ -37,7 +42,8 @@ public class AuthController {
     // Rota para acessar o FormCadastro
     //@RequestMapping("/formCadastro")
     @RequestMapping(value="/formCadastro")
-    public ModelAndView getFormCadstro(ModelAndView mav) {
+    public ModelAndView getFormCadastro(User user, ModelAndView mav) {
+        mav.addObject("user", user);
         mav.setViewName("auth/formCadastro");
         return mav;
     }
@@ -79,12 +85,13 @@ public class AuthController {
     // Rota para realizar o Cadastrar
     //  @PostMapping
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public ModelAndView register(@RequestParam("username") String username, @RequestParam("password") String password, ModelAndView mav) {
+    public ModelAndView register(@ModelAttribute User usuario , ModelAndView mav) {
         
-        String url = localhost + "/register"; 
-        String parametrosLogin = username + password;
+        String url = localhost + "/user/save"; 
+       // String parametrosLogin = username + password;
         
-        String response = restTemplate.postForObject(url,parametrosLogin , String.class);
+       // String response = restTemplate.postForObject(url,parametrosLogin , String.class);
+        ResponseEntity<User> response = restTemplate.postForEntity(url, usuario, User.class);
 
         System.err.println(response + "volte");
         return new ModelAndView("redirect:/login");

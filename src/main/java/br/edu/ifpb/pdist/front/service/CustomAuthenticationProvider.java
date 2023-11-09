@@ -1,27 +1,40 @@
 package br.edu.ifpb.pdist.front.service;
 
+import java.net.URI;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;
-    private String localhost = "http://localhost:5000";
+    private String localhost = "http://localhost:8085";
     @Autowired
     private RestTemplate restTemplate;
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
+    
+    // @Autowired
+    // private CustomUserDetailsService customUserDetailsService;
 
-    ///@Autowired
+    @Autowired
     public CustomAuthenticationProvider(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
@@ -30,29 +43,46 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
+       
+       
 
-        UserDetails userDetails;
-        try {
-            userDetails = userDetailsService.loadUserByUsername(username);
-        } catch (UsernameNotFoundException e) {
-            throw new UsernameNotFoundException("Nome de usuário não encontrado: " + username);
-        }
-        String url = localhost + "/login"; 
-        String parametrosLogin = username+password;
-         System.err.println("antes de chamar &&&&&&&&&&&&&&&&&&&");
+     //   UserDetails userDetails;
         
-        String response = restTemplate.postForObject(url,parametrosLogin , String.class);
-         
+           // userDetails = ((CustomUserDetailsService) userDetailsService).loadUserByUsernameAndPassword(username, password);
+       
+          // String url = localhost + "/user/logar"; 
+           
 
-        System.err.println(response+ "volteiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+//            String url = localhost + "/user/logar";
+//            URI uri = UriComponentsBuilder.fromUriString(url)
+//            .queryParam("param1", username)
+//            .queryParam("param2", password)
+//            .build()
+//            .toUri();
 
-        // Realize a validação personalizada da senha aqui
-        if (passwordIsValid(password, userDetails.getPassword())) {
-            // Se a senha for válida, crie uma instância de UsernamePasswordAuthenticationToken para autenticar o usuário
-            return new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
-        } else {
-            throw new AuthenticationException("Senha inválida") {};
-        }
+// String resultado = restTemplate.getForObject(uri, String.class);
+// System.out.println(resultado);
+         //  String  usuarioLogado = restTemplate.postForObject(url, parametrosLogin, String.class);
+       String url = localhost + "/user/logar";
+        MultiValueMap<String, String> parametros = new LinkedMultiValueMap<>();
+        parametros.add("param1", username);
+        parametros.add("param2", password);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+
+        HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<>(parametros, headers);
+
+        AuthenticationResponse  resultado = restTemplate.postForObject(url, request, AuthenticationResponse.class);
+        System.out.println(authentication);
+
+        // Crie um Authentication usando a implementação apropriada (por exemplo, UsernamePasswordAuthenticationToken)
+        Authentication authenticationRes = new UsernamePasswordAuthenticationToken(resultado.getUsername(), password, resultado.getAuthorities());
+        
+        
+        return authenticationRes;
+    
+        
     }
 
     @Override
