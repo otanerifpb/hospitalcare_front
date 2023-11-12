@@ -65,7 +65,7 @@ public class MedicoController {
         //ResponseEntity<Medico> response = restTemplate.postForEntity("http://localhost:8081/medico/save", medico, Medico.class);
         ResponseEntity<Medico> response = restTemplate.postForEntity(url, medico, Medico.class);
         if (response.getStatusCode() == HttpStatus.CREATED) {
-            mav.addObject("succesMensagem", "Médico " +response.getBody().getNome()+ "cadastrado com sucesso!");
+            mav.addObject("succesMensagem", "Médico " +response.getBody().getNome()+ " cadastrado com sucesso!");
             listAll(mav);
             mav.setViewName("medico/listMedico");
         } else {

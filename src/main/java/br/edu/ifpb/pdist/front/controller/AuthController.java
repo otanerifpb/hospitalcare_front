@@ -3,6 +3,7 @@ package br.edu.ifpb.pdist.front.controller;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -71,24 +72,39 @@ public class AuthController {
         
         String url = localhost + "/login"; 
         String parametrosLogin = username+password;
-        
         String response = restTemplate.postForObject(url,parametrosLogin , String.class);
+        //ResponseEntity<User> response = restTemplate.postForObject(url,parametrosLogin , User.class);
 
-        System.err.println(response + "volte");
-            return new ModelAndView("redirect:/home");
+        // if (response.getStatusCode() == HttpStatus.OK) {
+
+        // }
+
+        System.err.println("\nResposta do Login: " +response);
+        return new ModelAndView("redirect:/home");
     }
 
     // Rota para realizar o Cadastrar
     //  @PostMapping
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ModelAndView register(@ModelAttribute User usuario , ModelAndView mav) {
-        
-        String url = localhost + "/user/save"; 
 
+        String url = localhost + "/user/save";
         ResponseEntity<User> response = restTemplate.postForEntity(url, usuario, User.class);
 
-        System.err.println(response + "volte");
-        return new ModelAndView("redirect:/login");
+        if (response.getStatusCode() == HttpStatus.CREATED) {
+            //System.err.println(response + "\nEstou no if do Cadastro");
+            //return new ModelAndView("redirect:/login");
+            mav.addObject("succesMensagem", "Usuário " +response.getBody().getNome()+ " Cadastrado com Sucesso!");
+            mav.setViewName("redirect:/login");
+            //mav.setViewName("/auth/formCadastro");
+        } else {
+            //System.err.println(response + "\nEstou no else do Cadastro");
+            mav.addObject("errorMensagem", "E-mail " +usuario.getUsername()+ " já Cadastrado no Sistema!");
+            mav.setViewName("/auth/formCadastro");
+        }
+        //System.err.println(response + "volte");
+        //return new ModelAndView("redirect:/login");
+        return mav;
     }
     
     // Rota para realizar o Logout
