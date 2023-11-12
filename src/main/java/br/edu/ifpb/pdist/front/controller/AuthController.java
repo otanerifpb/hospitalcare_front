@@ -25,9 +25,12 @@ public class AuthController {
     private RestTemplate restTemplate;
 
     private String localhost = "http://localhost:8085";
+    
     // Rota para acessar o formLogin geral
     @GetMapping
     public ModelAndView login() {
+
+
         return new ModelAndView("auth/formLogin");
     }
 
