@@ -24,22 +24,21 @@ public class AuthController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private String localhost = "http://localhost:8085";
-    
+   // private String localhost = "http://localhost:8085"; //backuser
+    // private String localhost = "http://localhost:8086"; //local gatewayconfig
+    private String localhost    =  "https://apigatewayconfig-18d04b6103e0.herokuapp.com";
     // Rota para acessar o formLogin geral
     @GetMapping
     public ModelAndView login() {
-
-
         return new ModelAndView("auth/formLogin");
     }
 
-    // Rota para acessar o FormLogin
-    @RequestMapping("/formLogin")
-    public ModelAndView getFormLogin(ModelAndView mav) {
-        mav.setViewName("auth/formLogin");
-        return mav;
-    }
+    // // Rota para acessar o FormLogin
+    // @RequestMapping("/formLogin")
+    // public ModelAndView getFormLogin(ModelAndView mav) {
+    //     mav.setViewName("auth/formLogin");
+    //     return mav;
+    // }
 
     // Rota para acessar o FormCadastro
     @RequestMapping("/formCadastro")

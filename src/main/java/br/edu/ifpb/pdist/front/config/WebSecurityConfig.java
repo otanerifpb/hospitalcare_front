@@ -15,6 +15,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.client.RestTemplate;
 
+
 import br.edu.ifpb.pdist.front.service.CustomAuthenticationProvider;
 
 import javax.sql.DataSource;
@@ -32,7 +33,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         http
             .authorizeRequests()
-            .antMatchers("/css/**", "/imagens/**", "/templates/fragments/**", "/auth/formLogin", "/auth/formCadastro", "/auth/register")
+            .antMatchers("/css/**", "/imagens/**", "/auth/formLogin", "/auth/formCadastro", "/auth/register")
             .permitAll()
             .antMatchers("/auth").permitAll()
             .anyRequest()
@@ -40,7 +41,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
             .and()
             .formLogin(form -> form 
                     .loginPage("/auth")  
+                    .loginProcessingUrl("/auth/process")
                     .defaultSuccessUrl("/home", true) 
+                    .failureUrl("/auth?error=true")
                     .permitAll())  
             .logout(logout -> logout.logoutUrl("/auth/logout")); 
     }
@@ -58,6 +61,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(AuthenticationManagerBuilder auth) { auth.authenticationProvider(customAuthenticationProvider);
   }
-    
+ 
 
 }
