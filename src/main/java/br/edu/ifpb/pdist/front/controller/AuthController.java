@@ -26,7 +26,7 @@ public class AuthController {
 
    // private String localhost = "http://localhost:8085"; //backuser
     // private String localhost = "http://localhost:8086"; //local gatewayconfig
-    private String localhost    =  "https://apigatewayconfig-18d04b6103e0.herokuapp.com";
+    private String urlWeb    =  "https://apigatewayconfig-18d04b6103e0.herokuapp.com";
     // Rota para acessar o formLogin geral
     @GetMapping
     public ModelAndView login() {
@@ -72,7 +72,7 @@ public class AuthController {
         // Redireciona para a página principal
         //return new ModelAndView("redirect:http://localhost:5000/");
         
-        String url = localhost + "/login"; 
+        String url = urlWeb + "/login"; 
         String parametrosLogin = username+password;
         String response = restTemplate.postForObject(url,parametrosLogin , String.class);
         //ResponseEntity<User> response = restTemplate.postForObject(url,parametrosLogin , User.class);
@@ -90,7 +90,7 @@ public class AuthController {
     @RequestMapping(value="/register", method = RequestMethod.POST)
     public ModelAndView register(@ModelAttribute User usuario , ModelAndView mav) {
 
-        String url = localhost + "/user/save";
+        String url = urlWeb + "/user/save";
         ResponseEntity<User> response = restTemplate.postForEntity(url, usuario, User.class);
 
         if (response.getStatusCode() == HttpStatus.CREATED) {
