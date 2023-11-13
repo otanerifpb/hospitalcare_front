@@ -7,15 +7,15 @@
 </head>
 <body>
     <!-- <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div> -->
-    <div th:replace="~/fragments/body :: logo(titulo='HospitalCare')"></div>
+    <div th:replace="fragments/body :: logo(titulo='HospitalCare')"></div>
 
     <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
-        <div th:replace="~/fragments/body :: menu"></div>
-        <div th:replace="~/fragments/body :: sair(titulo='Sair')"></div> 
+        <div th:replace="fragments/body :: menu"></div>
+        <div th:replace="fragments/body :: sair(titulo='Sair')"></div> 
     </nav>
 
     <div class="container">
-        <div th:replace="~/fragments/body :: mensagens"></div>
+        <div th:replace="fragments/body :: mensagens"></div>
         
         <div layout:fragment="content" class="home-page mb-0 p-0">
             <div class="div-home">
@@ -38,6 +38,6 @@
     </div>
 </body>
 <footer>
-    <div th:replace="~{/fragments/footer :: footer}"></div>
+    <div th:replace="fragments/footer :: footer"></div>
 </footer>
 </html>
