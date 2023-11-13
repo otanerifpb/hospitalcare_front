@@ -19,6 +19,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;
 
+    //private String localhost = "http://localhost:8085"; local
     private String localhost = "http://localhost:8085";
 
     @Autowired
