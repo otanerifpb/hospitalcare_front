@@ -2,19 +2,20 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     th:with="titulo1='Página Principal', titulo2='Hospital Care'">
     <!-- layout:decorate="~{layout/layout}" -->
-<head>
-    <meta th:insert="~{/fragments/head :: head(${titulo1})}">
+<head th:replace="fragments/head :: head(${titulo1})">
+    <!-- <meta th:insert="~{/fragments/head :: head(${titulo1})}"> -->
 </head>
 <body>
-    <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div>
+    <!-- <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div> -->
+    <div th:replace="~/fragments/body :: logo(titulo='HospitalCare')"></div>
 
     <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
-        <div th:replace="~{/fragments/body :: menu}"></div>
-        <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div> 
+        <div th:replace="~/fragments/body :: menu"></div>
+        <div th:replace="~/fragments/body :: sair(titulo='Sair')"></div> 
     </nav>
 
     <div class="container">
-        <div th:replace="~{/fragments/body :: mensagens}"></div>
+        <div th:replace="~/fragments/body :: mensagens"></div>
         
         <div layout:fragment="content" class="home-page mb-0 p-0">
             <div class="div-home">
