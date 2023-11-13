@@ -3,7 +3,7 @@
     th:with="titulo1='Página Principal', titulo2='Hospital Care'">
     <!-- layout:decorate="~{layout/layout}" -->
 <head>
-    <!-- <meta th:insert="~{/fragments/head :: head(${titulo1})}"> -->
+    <meta th:insert="~{/fragments/head :: head(${titulo1})}">
 </head>
 <body>
     <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div>
