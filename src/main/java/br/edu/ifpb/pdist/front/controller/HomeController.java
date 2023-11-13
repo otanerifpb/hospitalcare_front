@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/hospital")
 public class HomeController {
 
     // Ativa o menu Home na barra de navegação
