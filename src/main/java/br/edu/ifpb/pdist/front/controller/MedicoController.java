@@ -32,7 +32,8 @@ public class MedicoController {
     //private String localhost;
 
     // private String localhost = "http://localhost:8081/medico";
-    private String localhost = "https://apigatewayconfig-18d04b6103e0.herokuapp.com";
+    private String localhost = "https://apigatewayconfig-18d04b6103e0.herokuapp.com/medico";
+    
 
 
     // Ativa o menu na barra de navegação
