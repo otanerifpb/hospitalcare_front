@@ -2,20 +2,20 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     th:with="titulo1='Cadastrar Médico', titulo2='Cadastro de Médico'">
 <head>
-    <meta th:insert="~{/fragments/head :: head(${titulo1})}">
+    <meta th:insert="fragments/head :: head(${titulo1})">
 </head>
 <body>
-    <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div>
+    <div th:replace="fragments/body :: logo(titulo='HospitalCare')"></div>
 
     <nav class="navbar navbar-expand navbar-light bg-light d-flex justify-content-between mb-3">
-        <div th:replace="~{/fragments/body :: menu}"></div>
-        <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div> 
+        <div th:replace="fragments/body :: menu"></div>
+        <div th:replace="fragments/body :: sair(titulo='Sair')"></div> 
     </nav>
 
     <div class="container">
         <div layout:fragment="content">
             <form th:action="@{/medico}" method="POST" th:object="${medico}">
-                <div th:replace="~{/fragments/body :: formMedico}"></div>
+                <div th:replace="fragments/body :: formMedico"></div>
     
                 <button class="btn btn-outline-secondary btn-sm" type="submit" title="Salvar">
                     <img th:src="@{/imagens/salvar5.jpg}" alt="Salvar"/> Salvar
