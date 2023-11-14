@@ -73,7 +73,7 @@
 
         <div th:unless="${not #lists.isEmpty(medico)}"></br>
             <table class="table table-striped table-hover">
-                <div th:replace="~{/medico/listMedico :: cabmedic}"></div>
+                <div th:replace="/medico/listMedico :: cabmedic"></div>
             </table>
 
             <h3 class="aviso">
