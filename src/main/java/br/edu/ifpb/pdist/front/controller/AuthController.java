@@ -26,7 +26,7 @@ public class AuthController {
 
    // private String localhost = "http://localhost:8085"; //backuser
     // private String localhost = "http://localhost:8086"; //local gatewayconfig
-    private String urlWeb    =  "https://apigatewayconfig-18d04b6103e0.herokuapp.com";
+    private String urlWeb    =  "https://gatewayhospital-0433a88d53ad.herokuapp.com";
     // Rota para acessar o formLogin geral
     @GetMapping
     public ModelAndView login() {
