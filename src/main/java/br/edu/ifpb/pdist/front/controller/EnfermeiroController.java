@@ -16,7 +16,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.edu.ifpb.pdist.front.model.Enfermeiro;
-import br.edu.ifpb.pdist.front.model.Medico;
 
 @Controller
 @RequestMapping("/enfermeiro")
@@ -26,7 +25,8 @@ public class EnfermeiroController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private String localhost = "https://gatewayhospital-0433a88d53ad.herokuapp.com/enfermeiro";
+     private String localhost = "http://localhost:8085/enfermeiro";
+   //private String localhost = "https://gatewayhospital-0433a88d53ad.herokuapp.com/enfermeiro";
     
     // Ativa o menu na barra de navegação
     @ModelAttribute("menu")
@@ -47,7 +47,7 @@ public class EnfermeiroController {
 
     // Rota para acessar o formunário pelo botão Novo
     @RequestMapping("/formEnfermeiro")
-    public ModelAndView getFormEstu(Medico enfermeiro, ModelAndView mav) {
+    public ModelAndView getFormEstu(Enfermeiro enfermeiro, ModelAndView mav) {
         mav.addObject("enfermeiro", enfermeiro);
         mav.setViewName("enfermeiro/formEnfermeiro");
         return mav;
