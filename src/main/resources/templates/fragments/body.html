@@ -32,7 +32,7 @@
             Pacientes
         </a>
         <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'enfermeiro'} ? 'active'"  
-            class="nav-item nav-link" th:href="@{/auth/obra}">
+            class="nav-item nav-link" th:href="@{/enfermeiro}">
             Enfermeiros
         </a>
         <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'recepcionista'} ? 'active'"  

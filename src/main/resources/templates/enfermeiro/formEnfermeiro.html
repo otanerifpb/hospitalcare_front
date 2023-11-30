@@ -13,19 +13,19 @@
     </nav>
 
     <div class="container">
-        <form th:action="@/enfermeiro" method="POST" th:object="${enfermeiro}">
+        <form th:action="@{/enfermeiro}" method="POST" th:object="${enfermeiro}">
             <div th:replace="fragments/body :: formEnfermeiro"></div>
-        </form>
 
-        <button class="btn btn-outline-secondary btn-sm" type="submit" title="Salvar">
-            <img th:src="@{/imagens/salvar5.jpg}" alt="Salvar"/> Salvar
-        </button>
-
-        <a th:href="@{/enfermeiro}">
-            <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
-                <img th:src="@{/imagens/voltar.png}" alt="Voltar"/> Voltar
+            <button class="btn btn-outline-secondary btn-sm" type="submit" title="Salvar">
+                <img th:src="@{/imagens/salvar5.jpg}" alt="Salvar"/> Salvar
             </button>
-        </a>
+    
+            <a th:href="@{/enfermeiro}">
+                <button class="btn btn-outline-secondary btn-sm" type="button" title="Voltar">
+                    <img th:src="@{/imagens/voltar.png}" alt="Voltar"/> Voltar
+                </button>
+            </a>
+        </form>
     </div>
 </body>
 </html>

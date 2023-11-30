@@ -29,7 +29,7 @@
             </div></br>
 
             <table class="table table-striped table-hover">
-                <div class="navbar-nav" th:fragment="cabmedic">
+                <div class="navbar-nav" th:fragment="cabenferm">
                     <thead>
                         <tr>
                             <th>Nome:</th>
@@ -68,15 +68,15 @@
             </table>
         </div>
 
-        <!-- <div th:unless="${not #lists.isEmpty(enfermeiro)}"></br>
+        <div th:unless="${not #lists.isEmpty(enfermeiro)}"></br>
             <table class="table table-striped table-hover">
-                <div th:replace="enfermeiro/listEnfermeiro :: cabmedic"></div>
+                <div th:replace="enfermeiro/listEnfermeiro :: cabenferm"></div>
             </table>
 
             <h3 class="aviso">
                 <span>Nenhum Enfermeiro Está Cadastrado no Sistema!!</span>
             </h3>  
-        </div> -->
+        </div>
     </div>
 </body>
 </html>

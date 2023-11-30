@@ -25,8 +25,8 @@ public class EnfermeiroController {
     @Autowired
     private RestTemplate restTemplate;
 
-     private String localhost = "http://localhost:8085/enfermeiro";
-   //private String localhost = "https://gatewayhospital-0433a88d53ad.herokuapp.com/enfermeiro";
+   //  private String localhost = "http://localhost:8086/enfermeiro";
+   private String localhost = "https://gatewayhospital-0433a88d53ad.herokuapp.com/enfermeiro";
     
     // Ativa o menu na barra de navegação
     @ModelAttribute("menu")
@@ -57,7 +57,7 @@ public class EnfermeiroController {
     @RequestMapping(method = RequestMethod.POST)
     public ModelAndView save(@ModelAttribute Enfermeiro enfermeiro , ModelAndView mav, RedirectAttributes redAttrs) {
         String url = localhost + "/save";
-        //ResponseEntity<Enfermeiro> response = restTemplate.postForEntity("http://localhost:8083/enfermeiro/save", medico, Medico.class);
+        //ResponseEntity<Enfermeiro> response = restTemplate.postForEntity("http://localhost:8083/enfermeiro/save", enfermeiro, Enfermeiro.class);
         ResponseEntity<Enfermeiro> response = restTemplate.postForEntity(url, enfermeiro, Enfermeiro.class);
         if (response.getStatusCode() == HttpStatus.CREATED) {
             mav.addObject("succesMensagem", "Enfermeiro" +response.getBody().getNome()+ " cadastrado com sucesso!");
