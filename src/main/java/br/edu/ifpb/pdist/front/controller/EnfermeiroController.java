@@ -25,7 +25,7 @@ public class EnfermeiroController {
     @Autowired
     private RestTemplate restTemplate;
 
-     private String localhost = "http://localhost:8085/enfermeiro";
+     private String localhost = "http://localhost:8086/enfermeiro";
    //private String localhost = "https://gatewayhospital-0433a88d53ad.herokuapp.com/enfermeiro";
     
     // Ativa o menu na barra de navegação
