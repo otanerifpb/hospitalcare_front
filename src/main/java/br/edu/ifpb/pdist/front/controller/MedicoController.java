@@ -31,8 +31,8 @@ public class MedicoController {
     //@Value("${backend.url}")
     //private String localhost;
 
-    private String localhost = "http://localhost:8086/medico";
-    //private String localhost = "https://gatewayhospital-0433a88d53ad.herokuapp.com/medico";
+    // private String localhost = "http://localhost:8081/medico";
+    private String localhost = "https://gatewayhospital-0433a88d53ad.herokuapp.com/medico";
     
 
 

@@ -25,7 +25,7 @@ public class AuthController {
     private RestTemplate restTemplate;
 
     //private String urlWeb = "http://localhost:8085"; //backuser
-    private String urlWeb = "http://localhost:8086"; //local gatewayconfig
+    private String urlWeb = "http://localhost:8086/user"; //local gatewayconfig
     //private String urlWeb    =  "https://gatewayhospital-0433a88d53ad.herokuapp.com";
 
     // Rota para acessar o formLogin geral
