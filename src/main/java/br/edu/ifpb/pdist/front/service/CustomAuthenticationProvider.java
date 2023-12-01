@@ -19,8 +19,8 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     private final UserDetailsService userDetailsService;
 
-    //private String localhost = "http://localhost:8085"; local
-    private String localhost = "https://gatewayhospital-0433a88d53ad.herokuapp.com";
+    private String localhost = "http://localhost:8085";
+    //private String localhost = "https://gatewayhospital-0433a88d53ad.herokuapp.com";
 
     @Autowired
     private RestTemplate restTemplate;

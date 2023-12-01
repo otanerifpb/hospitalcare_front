@@ -25,7 +25,7 @@ public class PacienteController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private String localhost = "http://localhost:8082/paciente";
+    private String localhost = "http://localhost:8086/paciente";
     
     // Ativa o menu na barra de navegação
     @ModelAttribute("menu")

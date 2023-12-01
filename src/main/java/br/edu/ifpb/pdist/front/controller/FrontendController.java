@@ -13,6 +13,7 @@ public class FrontendController {
 
     @GetMapping("/frontend")
     public String getFrontendData() {
+        
         // Fazer uma chamada à API do projeto "backend"
         String backendData = restTemplate.getForObject("http://localhost:8081/backend", String.class);
         return "Frontend Data: " + backendData;

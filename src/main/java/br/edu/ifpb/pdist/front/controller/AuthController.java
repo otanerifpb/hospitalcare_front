@@ -24,9 +24,10 @@ public class AuthController {
     @Autowired
     private RestTemplate restTemplate;
 
-   // private String localhost = "http://localhost:8085"; //backuser
-    // private String localhost = "http://localhost:8086"; //local gatewayconfig
-    private String urlWeb    =  "https://gatewayhospital-0433a88d53ad.herokuapp.com";
+    //private String urlWeb = "http://localhost:8085"; //backuser
+    private String urlWeb = "http://localhost:8086"; //local gatewayconfig
+    //private String urlWeb    =  "https://gatewayhospital-0433a88d53ad.herokuapp.com";
+
     // Rota para acessar o formLogin geral
     @GetMapping
     public ModelAndView login() {
@@ -34,11 +35,11 @@ public class AuthController {
     }
 
     // // Rota para acessar o FormLogin
-    // @RequestMapping("/formLogin")
-    // public ModelAndView getFormLogin(ModelAndView mav) {
-    //     mav.setViewName("auth/formLogin");
-    //     return mav;
-    // }
+    @RequestMapping("/formLogin")
+    public ModelAndView getFormLogin(ModelAndView mav) {
+        mav.setViewName("auth/formLogin");
+        return mav;
+    }
 
     // Rota para acessar o FormCadastro
     @RequestMapping("/formCadastro")
