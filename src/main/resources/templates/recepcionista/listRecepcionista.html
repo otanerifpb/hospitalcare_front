@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     th:with="titulo1='Lista Recepcionista(s)', titulo2='Recepcionistas Cadastrado(s)'">
-    <!-- layout:decorate="~{layout/layout}" -->
 <head>
     <meta th:insert="~{/fragments/head :: head(${titulo1})}">
 </head>
@@ -12,5 +11,72 @@
         <div th:replace="~{/fragments/body :: menu}"></div>
         <div th:replace="~{/fragments/body :: sair(titulo='Sair')}"></div>
     </nav>
+
+    <div class="container">
+        <div th:replace="~{/fragments/body :: mensagens}"></div>
+        
+        <div layout:fragment="content">
+            <form th:action="@{/recepcionista/formRecepcionista}" method="GET">
+                <button class="btn btn-outline-secondary" type="submit" title="Novo">
+                    <img th:src="@{/imagens/novo1.png}" alt="Novo"/> Novo
+                </button>
+            </form>
+        </div>
+
+        <div th:if="${not #lists.isEmpty(paciente)}">
+            <div th:text="'Total: ' + ${#lists.size(paciente)} + ' registro(s)'" 
+                style="text-align: right; color: gray; font-size: 0.85em;">
+            </div></br>
+
+            <table class="table table-striped table-hover">
+                <div class="navbar-nav" th:fragment="cabrec">
+                    <thead>
+                        <tr>
+                            <th>Nome:</th>
+                            <th style="text-align: center;">Matrícula:</th>
+                            <th style="text-align: center;">Sexo:</th>
+                            <th style="text-align: center;">Data Nascimento:</th>
+                            <th style="text-align: center;">Telefone:</th>
+                        </tr>
+                    </thead>
+                </div>
+
+                <tbody>
+                    <tr th:each="recepcionista : ${recepcionista}">
+                        <td th:text="${recepcionista.nome != null and recepcionista.nome != '' ?recepcionista.nome: 'Anônimo'}"></td>
+                        <td th:text="${recepcionista.matricula}" style="text-align: center;"></td>
+                        <td th:text="${recepcionista.sexo}" style="text-align: center;"></td>
+                        <td th:text="${#dates.format(recepcionista.dataNascimento, 'dd ''de'' MMMM ''de'' yyyy')}" 
+                            style="text-align: center;"></td>
+                        <td th:text="${recepcionista.telefone}" style="text-align: center;"></td>
+                        <td>
+                            <form th:action="@{/recepcionista/{id}(id=${recepcionista.id})}" method="GET">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Editar">
+                                    <img th:src="@{/imagens/editar.png}" alt="Editar"/> Editar
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <form th:action="@{/recepcionista/{id}/delete(id=${recepcionista.id})}">
+                                <button class="btn btn-outline-secondary btn-sm" type="submit" title="Excluir">
+                                    <img th:src="@{/imagens/lixeira1.jpg}" alt="Excluir"/> Excluir
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div th:unless="${not #lists.isEmpty(recepcionista)}"></br>
+            <table class="table table-striped table-hover">
+                <div th:replace="~{/recepcionista/listRecepcionista :: cabrec}"></div>
+            </table>
+
+            <h3 class="aviso">
+                <span>Nenhum Recepcionista Está Cadastrado no Sistema!!</span>
+            </h3>  
+        </div>
+    </div>
 </body>
 </html>
