@@ -36,7 +36,7 @@
             Enfermeiros
         </a>
         <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'recepcionista'} ? 'active'"  
-            class="nav-item nav-link" th:href="@{/auth/obra}">
+            class="nav-item nav-link" th:href="@{/recepcionista}">
             Recepcionistas
         </a>
         <a sec:authorize="hasRole('USER','ADMIN')" th:classappend="${menu == 'documento'} ? 'active'"  
@@ -188,6 +188,56 @@
             <label for="coren" class="form-label">COREN:</label>
             <input type="text" class="form-control" th:field="*{coren}" />
             <p th:if="${#fields.hasErrors('coren')}" th:errorclass="error" th:errors="*{coren}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+             <label for="sexo" class="form-label">Sexo:</label>
+            <select th:field="*{sexo}" class="form-select"  >
+                <option th:value="''" th:text="''"></option>
+                <option th:value="'M'" th:text="Masculino"></option>
+                <option th:value="'F'" th:text="Feminino"></option>
+            </select>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="dataNascimento" class="form-label">Data Nascimento:</label>
+            <input type="date" class="form-control" th:field="*{dataNascimento}" />
+            <p th:if="${#fields.hasErrors('dataNascimento')}" th:errorclass="error" th:errors="*{dataNascimento}"></p> 
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="telefone" class="form-label">Telefone:</label>
+            <input type="number" class="form-control" th:field="*{telefone}"/> 
+            <p th:if="${#fields.hasErrors('telefone')}" th:errors="*{telefone}" th:errorclass="error">
+        </div>
+    </div>
+
+    <!-- Dados do formulário de User -->
+    <div class="navbar-nav" th:fragment="formUser">
+        <input type="hidden" required th:field="*{id}"/>
+        <label for="nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" th:field="*{nome}" maxlength="50"/>
+            <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}"></p>
+        <label for="username" class="form-label">Email</label>
+            <input type="text" class="form-control" th:field="*{username}" />
+            <p th:if="${#fields.hasErrors('username')}" th:errorclass="error" th:errors="*{username}"></p>
+        <label for="password" class="form-label">Senha</label>
+            <input type="text" class="form-control" th:field="*{password}" />
+            <p th:if="${#fields.hasErrors('password')}" th:errorclass="error" th:errors="*{password}"></p>
+        <label for="enabled" class="form-label">Habilitar</label>
+                <input  type="checkbox" th:field="*{enabled}">
+                <p th:if="${#fields.hasErrors('enabled')}" th:errorclass="error" th:errors="*{enabled}"></p>
+    </div>
+
+    <!-- Dados do formulário de Recepcionista -->
+    <div class="navbar-nav" th:fragment="formRecepcionista">
+        <input type="hidden" required th:field="*{id}" />
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="nome" class="form-label">Nome:</label>
+            <input type="text" class="form-control" th:field="*{nome}" maxlength="50"/>
+            <p th:if="${#fields.hasErrors('nome')}" th:errorclass="error" th:errors="*{nome}"></p>
+        </div>
+        <div class="form-group mx-sm-0 mb-2">
+            <label for="matricula" class="form-label">Matrícula:</label>
+            <input type="text" class="form-control" th:field="*{matricula}" />
+            <p th:if="${#fields.hasErrors('matricula')}" th:errorclass="error" th:errors="*{matricula}"></p>
         </div>
         <div class="form-group mx-sm-0 mb-2">
              <label for="sexo" class="form-label">Sexo:</label>
