@@ -15,7 +15,6 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.edu.ifpb.pdist.front.model.Paciente;
 import br.edu.ifpb.pdist.front.model.Recepcionista;
 
 @Controller
