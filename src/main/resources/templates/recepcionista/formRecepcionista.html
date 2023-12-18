@@ -2,7 +2,7 @@
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
     th:with="titulo1='Cadastrar Recepcionista', titulo2='Cadastro de Recepcionista'">
 <head>
-    <meta th:insert="fragments/head :: head(${titulo1})">
+    <meta th:insert="~{fragments/head :: head(${titulo1})}">
 </head>
 <body>
     <div th:replace="~{/fragments/body :: logo(titulo='HospitalCare')}"></div>
