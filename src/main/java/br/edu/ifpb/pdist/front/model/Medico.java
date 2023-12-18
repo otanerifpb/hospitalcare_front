@@ -29,8 +29,10 @@ public class Medico implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @NotBlank(message = "Este campo é obrigatório!")
     private String nome;
 
+    @NotBlank(message = "Este campo é obrigatório!")
     private String crm;
 
     private String sexo;
