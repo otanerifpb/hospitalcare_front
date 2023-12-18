@@ -12,7 +12,8 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-private String localhost = "http://localhost:8085";
+    private String localhost = "http://localhost:8085";
+
     @Autowired
     private RestTemplate restTemplate;
   
@@ -21,7 +22,8 @@ private String localhost = "http://localhost:8085";
         return null;
         // Implemente a lógica para carregar os detalhes do usuário aqui
     }
-  @Override
+    
+    @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         
         return null;

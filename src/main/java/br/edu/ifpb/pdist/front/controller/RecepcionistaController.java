@@ -66,7 +66,7 @@ public class RecepcionistaController {
         return mav;
     }
 
-    // Rota para preencer os dados do formunlário de update pelo botão Editar 
+    // Rota para preencher os dados do formunlário de update pelo botão Editar 
     @RequestMapping("/{id}")
     public ModelAndView getRecepcionistaById(@PathVariable(value = "id") Integer id, ModelAndView mav) { 
         String url = localhost + "/" + id; 

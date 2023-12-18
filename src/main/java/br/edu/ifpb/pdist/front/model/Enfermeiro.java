@@ -18,10 +18,10 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-//@EqualsAndHashCode(exclude = {"instituicao", "declaracoes"})
 @AllArgsConstructor
 @Entity
 public class Enfermeiro implements Serializable{
+    
     // Para garantir que a assinatura de um número seja única , para o uso do @Id
     private static final long serialVersionUID = 1L;
     @Id
