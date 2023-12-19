@@ -7,8 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,10 +30,14 @@ public class Enfermeiro implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     
+    @NotBlank(message = "Este campo é obrigatório!")
     private String nome;
 
+    @Size(min = 7, max = 7, message = "Informe um COREN com 7 dígitos!")
+    @NotBlank(message = "Este campo é obrigatório!")
     private String coren;
 
+    @NotBlank(message = "Este campo é obrigatório!")
     private String sexo;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -39,5 +45,6 @@ public class Enfermeiro implements Serializable{
     @Past(message = "Data deve ser no passado")
     private Date dataNascimento;
 
+    @NotBlank(message = "Este campo é obrigatório!")
     private String telefone;
 }
