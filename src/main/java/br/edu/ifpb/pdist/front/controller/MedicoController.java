@@ -1,6 +1,9 @@
 package br.edu.ifpb.pdist.front.controller;
 
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -8,6 +11,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -63,7 +67,13 @@ public class MedicoController {
 
     // Rota para cadastrar no Sitema pelo botão Salvar do formulário
     @RequestMapping(method = RequestMethod.POST)
-    public ModelAndView save(@ModelAttribute Medico medico , ModelAndView mav, RedirectAttributes redAttrs) {
+    public ModelAndView save(@Valid Medico medico , BindingResult validation , ModelAndView mav, RedirectAttributes redAttrs) {
+        // Testar campos do formulário
+        if(validation.hasErrors()) {
+            mav.addObject("medico", medico);
+            mav.setViewName("medico/formMedico");
+            return mav;
+        }
         String url = localhost + "/save";
         //ResponseEntity<Medico> response = restTemplate.postForEntity("http://localhost:8081/medico/save", medico, Medico.class);
         ResponseEntity<Medico> response = restTemplate.postForEntity(url, medico, Medico.class);

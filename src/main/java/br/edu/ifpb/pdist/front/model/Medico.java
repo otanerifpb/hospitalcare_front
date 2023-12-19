@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -33,9 +34,11 @@ public class Medico implements Serializable {
     @NotBlank(message = "Este campo é obrigatório!")
     private String nome;
 
+    @Size(min = 7, max = 7, message = "Informe um CRM com 7 dígitos!")
     @NotBlank(message = "Este campo é obrigatório!")
     private String crm;
 
+    @NotBlank(message = "Este campo é obrigatório!")
     private String sexo;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
@@ -44,6 +47,7 @@ public class Medico implements Serializable {
     //@Max(value = new Date().minusYears(24))
     private Date dataNascimento;
 
+    @NotBlank(message = "Este campo é obrigatório!")
     private String especialidade;
 
     private String telefone;
